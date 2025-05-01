@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="mainLayout" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" stylesheets="@styles/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projet_gui.Controllers.PageProfileController">
+   <center>
+      <BorderPane styleClass="main-container" BorderPane.alignment="CENTER">
+         <top>
+            <HBox alignment="CENTER_LEFT" prefHeight="60.0" styleClass="header" BorderPane.alignment="CENTER">
+               <children>
+                  <Label styleClass="header-title" text="My Profile" />
+               </children>
+               <padding>
+                  <Insets left="20.0" right="20.0" />
+               </padding>
+            </HBox>
+         </top>
+         <center>
+            <VBox alignment="TOP_CENTER" spacing="20.0" BorderPane.alignment="CENTER">
+               <children>
+                  <StackPane>
+                     <children>
+                        <Circle fill="#4a7c59" radius="60.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="3.0" />
+                        <Label fx:id="userInitials" styleClass="profile-name" text="??">
+                           <font>
+                              <Font name="System Bold" size="36.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="30.0" />
+                     </VBox.margin>
+                  </StackPane>
+                  <Label fx:id="userName" styleClass="profile-name" text="John Doe">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="role" styleClass="profile-role" text="Farmer" />
+                  <VBox alignment="CENTER" maxWidth="400.0" spacing="10.0" styleClass="card">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#editAccount" prefHeight="50.0" prefWidth="300.0" styleClass="button-primary" text="Edit Account" />
+                        <Button mnemonicParsing="false" onAction="#deleteAccount" prefHeight="50.0" prefWidth="300.0" styleClass="button-accent" text="Delete Account" />
+                     </children>
+                     <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </padding>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+            </VBox>
+         </center>
+      </BorderPane>
+   </center>
+</BorderPane>

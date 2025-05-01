@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="mainLayout" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" stylesheets="@styles/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projet_gui.Controllers.PageDashboardController">
+    <center>
+        <BorderPane styleClass="main-container" BorderPane.alignment="CENTER">
+            <top>
+                <HBox alignment="CENTER_LEFT" prefHeight="60.0" styleClass="header" BorderPane.alignment="CENTER">
+                    <children>
+                        <Label styleClass="header-title" text="Dashboard" />
+                    </children>
+                    <padding>
+                        <Insets left="20.0" right="20.0" />
+                    </padding>
+                </HBox>
+            </top>
+            <center>
+                <VBox spacing="20.0">
+                    <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                    </padding>
+                    <children>
+                        <!-- Quick Stats Section -->
+                        <GridPane hgap="20.0" vgap="20.0">
+                            <children>
+                                <!-- Fields Overview -->
+                                <VBox styleClass="dashboard-tile" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                                    <children>
+                                        <Label styleClass="dashboard-tile-title" text="Total Fields" />
+                                        <Label fx:id="totalFieldsLabel" styleClass="dashboard-tile-value" text="0" />
+                                    </children>
+                                </VBox>
+                                <!-- Active Crops -->
+                                <VBox styleClass="dashboard-tile" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                    <children>
+                                        <Label styleClass="dashboard-tile-title" text="Active Crops" />
+                                        <Label fx:id="activeCropsLabel" styleClass="dashboard-tile-value" text="0" />
+                                    </children>
+                                </VBox>
+                                <!-- Pending Tasks -->
+                                <VBox styleClass="dashboard-tile" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                                    <children>
+                                        <Label styleClass="dashboard-tile-title" text="Pending Tasks" />
+                                        <Label fx:id="pendingTasksLabel" styleClass="dashboard-tile-value" text="0" />
+                                    </children>
+                                </VBox>
+                            </children>
+                        </GridPane>
+                        
+                        <!-- Quick Actions -->
+                        <VBox spacing="10.0" styleClass="card">
+                            <children>
+                                <Label styleClass="dashboard-tile-title" text="Quick Actions" />
+                                <HBox spacing="10.0">
+                                    <children>
+                                        <Button onAction="#addNewField" styleClass="button-primary" text="Add New Field" />
+                                        <Button onAction="#addNewTask" styleClass="button-primary" text="Create Task" />
+                                        <Button onAction="#viewWeather" styleClass="button-primary" text="View Weather" />
+                                    </children>
+                                </HBox>
+                            </children>
+                            <padding>
+                                <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                            </padding>
+                        </VBox>
+                        
+                        <!-- Field Status Overview -->
+                        <VBox spacing="10.0" styleClass="card">
+                            <children>
+                                <Label styleClass="dashboard-tile-title" text="Field Status Overview" />
+                                <VBox fx:id="fieldStatusContainer" spacing="10.0">
+                                    <!-- Field status items will be added here dynamically -->
+                                </VBox>
+                            </children>
+                            <padding>
+                                <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                            </padding>
+                        </VBox>
+                        
+                        <!-- Weather Alerts -->
+                        <VBox spacing="10.0" styleClass="card">
+                            <children>
+                                <Label styleClass="dashboard-tile-title" text="Weather Alerts" />
+                                <VBox fx:id="weatherAlertsContainer" spacing="10.0">
+                                    <!-- Weather alerts will be added here dynamically -->
+                                </VBox>
+                            </children>
+                            <padding>
+                                <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                            </padding>
+                        </VBox>
+                    </children>
+                </VBox>
+            </center>
+        </BorderPane>
+    </center>
+</BorderPane>
