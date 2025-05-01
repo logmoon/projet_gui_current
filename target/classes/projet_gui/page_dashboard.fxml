@@ -85,19 +85,6 @@
                                 <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                             </padding>
                         </VBox>
-                        
-                        <!-- Weather Alerts -->
-                        <VBox spacing="10.0" styleClass="card">
-                            <children>
-                                <Label styleClass="dashboard-tile-title" text="Weather Alerts" />
-                                <VBox fx:id="weatherAlertsContainer" spacing="10.0">
-                                    <!-- Weather alerts will be added here dynamically -->
-                                </VBox>
-                            </children>
-                            <padding>
-                                <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                            </padding>
-                        </VBox>
                     </children>
                 </VBox>
             </center>
