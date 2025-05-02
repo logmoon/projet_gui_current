@@ -86,6 +86,15 @@ CREATE TABLE Culture (
     description TEXT
 );
 
+-- Disease table
+CREATE TABLE Maladie (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(100) NOT NULL,
+    description TEXT NOT NULL,
+    traitement VARCHAR(255) NOT NULL,
+    symptomes TEXT  -- Added symptoms field
+);
+
 -- Junction table for Parcelle-Culture many-to-many relationship
 CREATE TABLE ParcelleCulture (
     id INT AUTO_INCREMENT PRIMARY KEY,  -- Added PK for easier referencing
@@ -98,15 +107,6 @@ CREATE TABLE ParcelleCulture (
     FOREIGN KEY (parcelleId) REFERENCES Parcelle(id) ON DELETE CASCADE,
     FOREIGN KEY (cultureId) REFERENCES Culture(id) ON DELETE CASCADE,
     FOREIGN KEY (maladieId) REFERENCES Maladie(id) ON DELETE SET NULL
-);
-
--- Disease table
-CREATE TABLE Maladie (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nom VARCHAR(100) NOT NULL,
-    description TEXT NOT NULL,
-    traitement VARCHAR(255) NOT NULL,
-    symptomes TEXT,  -- Added symptoms field
 );
 
 -- Crop report table
