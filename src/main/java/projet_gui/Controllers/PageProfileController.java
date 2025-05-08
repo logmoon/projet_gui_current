@@ -89,6 +89,7 @@ public class PageProfileController extends ControllerBaseWithSidebar {
 
     @FXML
     private void editAccount(ActionEvent event) {
+        App.navigateTo("page_update_account");
     }
 
     @FXML

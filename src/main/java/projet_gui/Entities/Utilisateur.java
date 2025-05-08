@@ -50,6 +50,12 @@ public class Utilisateur {
     }
     public String getEmail() { return email; }
 
+    public void setHashedPwd(String pwdHash) {
+        if (pwdHash == null || pwdHash.length() < 64) {
+            throw new IllegalArgumentException("Invalid hashed password format");
+        }
+        this.pwdHash = pwdHash;
+    }
     public void setPwd(String pwd) {
         if (pwd == null || pwd.length() < 6) {
             throw new IllegalArgumentException("Password must be at least 6 characters long");

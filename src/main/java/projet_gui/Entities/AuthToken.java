@@ -31,6 +31,7 @@ public class AuthToken {
     public void   setToken(String token) { this.token = token; }
 
     public Utilisateur getUser() { return user; }
+    public void setUser(Utilisateur user) { this.user = user; }
 
     @Override
     public String toString() {

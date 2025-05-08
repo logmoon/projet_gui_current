@@ -47,7 +47,7 @@
                   <Label fx:id="role" styleClass="profile-role" text="Farmer" />
                   <VBox alignment="CENTER" maxWidth="400.0" spacing="10.0" styleClass="card">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#editAccount" prefHeight="50.0" prefWidth="300.0" styleClass="button-primary" text="Edit Account" />
+                        <Button mnemonicParsing="false" onAction="#editAccount" prefHeight="50.0" prefWidth="300.0" styleClass="button-primary" text="Edit Account Information" />
                         <Button mnemonicParsing="false" onAction="#deleteAccount" prefHeight="50.0" prefWidth="300.0" styleClass="button-accent" text="Delete Account" />
                      </children>
                      <padding>

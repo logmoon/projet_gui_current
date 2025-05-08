@@ -24,6 +24,16 @@ public class AuthService {
     private AuthToken currentToken;
     public AuthToken getCurrentToken() { return currentToken; }
     public boolean isAuthenticated() { return currentToken != null; }
+    
+    /**
+     * Refreshes the current user data in the token
+     * Used after user information has been updated
+     */
+    public void refreshCurrentUser(Utilisateur updatedUser) {
+        if (currentToken != null) {
+            currentToken.setUser(updatedUser);
+        }
+    }
 
     // Singleton pattern
     private AuthService() {

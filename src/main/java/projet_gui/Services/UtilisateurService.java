@@ -184,10 +184,53 @@ public class UtilisateurService {
         }
         
         // Update with new password
-        String query = "UPDATE utilisateur SET pwd_hash = ? WHERE id = ?";
+        String query = "UPDATE utilisateur SET motDePasse = ? WHERE id = ?";
         
         try (PreparedStatement pst = connection.prepareStatement(query)) {
             // Create temporary user to hash new password
+            tempUser.setPwd(newPassword);
+            String hashedNewPassword = tempUser.getPwdHash();
+            
+            pst.setString(1, hashedNewPassword);
+            pst.setInt(2, userId);
+            
+            int affectedRows = pst.executeUpdate();
+            return affectedRows > 0;
+        }
+    }
+    
+    /**
+     * Verify user password
+     */
+    public boolean verifyPassword(int userId, String password) throws SQLException {
+        Optional<Utilisateur> userOpt = getUserById(userId);
+        if (!userOpt.isPresent()) {
+            return false;
+        }
+        
+        Utilisateur user = userOpt.get();
+        System.out.println(user);
+        
+        // Create temporary user to hash password for comparison
+        Utilisateur tempUser = new Utilisateur();
+        tempUser.setPwd(password);
+        String hashedPassword = tempUser.getPwdHash();
+        System.out.println(hashedPassword);
+        
+        // Compare with stored hash
+        System.out.println(user.getPwdHash());
+        return user.getPwdHash().equals(hashedPassword);
+    }
+    
+    /**
+     * Update user password directly
+     */
+    public boolean updatePassword(int userId, String newPassword) throws SQLException {
+        String query = "UPDATE utilisateur SET motDePasse = ? WHERE id = ?";
+        
+        try (PreparedStatement pst = connection.prepareStatement(query)) {
+            // Create temporary user to hash new password
+            Utilisateur tempUser = new Utilisateur();
             tempUser.setPwd(newPassword);
             String hashedNewPassword = tempUser.getPwdHash();
             
@@ -248,13 +291,14 @@ public class UtilisateurService {
         String prenom = rs.getString("prenom");
         String email = rs.getString("email");
         Role role = Role.valueOf(rs.getString("role"));
+        String pwdHash = rs.getString("motDePasse");
         boolean actif = rs.getBoolean("actif");
         
-        return createUser(id, nom, prenom, email, null, role, actif);
+        return createUser(id, nom, prenom, email, pwdHash, role, actif);
     }
     
     // Helper method to create user instance
-    private Utilisateur createUser(int id, String nom, String prenom, String email, String password, Role role, boolean actif) {
+    private Utilisateur createUser(int id, String nom, String prenom, String email, String pwdHash, Role role, boolean actif) {
         Utilisateur user = new Utilisateur();
         
         if (id > 0) {
@@ -264,9 +308,8 @@ public class UtilisateurService {
         user.setNom(nom);
         user.setPrenom(prenom);
         user.setEmail(email);
-        if (password != null) {
-            user.setPwd(password);
-        }
+        user.setHashedPwd(pwdHash);
+        user.setPrenom(prenom);
         user.setRole(role);
         user.setActif(actif);
         
