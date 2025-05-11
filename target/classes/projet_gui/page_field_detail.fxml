@@ -110,7 +110,7 @@
                                         <HBox alignment="CENTER_LEFT" spacing="10.0">
                                             <children>
                                                 <Label styleClass="dashboard-tile-title" text="Crops" HBox.hgrow="ALWAYS" />
-                                                <Button mnemonicParsing="false" onAction="#addCrop" styleClass="button" text="Add Crop" />
+                                                <Button mnemonicParsing="false" onAction="#manageCrops" styleClass="button" text="Manage Crops" />
                                             </children>
                                         </HBox>
                                         <TableView fx:id="cropsTable" prefHeight="200.0">

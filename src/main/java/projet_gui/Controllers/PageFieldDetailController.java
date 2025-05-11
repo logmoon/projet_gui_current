@@ -326,10 +326,8 @@ public class PageFieldDetailController extends ControllerBaseWithSidebar {
     }
     
     @FXML
-    private void addCrop(ActionEvent event) {
-        // This would typically open a dialog to select a crop to add
-        // For now, we'll just show a message
-        Alerts.showAlert(AlertType.INFORMATION, "Add Crop", "This feature will be implemented in a future update");
+    private void manageCrops(ActionEvent event) {
+        App.navigateTo("page_crops");
     }
     
     private void removeCrop(ParcelleCulture parcelleCulture) {
