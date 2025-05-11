@@ -21,6 +21,7 @@ import projet_gui.Services.ParcelleService;
 import projet_gui.Utils.Alerts;
 import projet_gui.Services.ParcelleCultureService;
 import projet_gui.Entities.Parcelle;
+import projet_gui.Controllers.PageFieldDetailController;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -164,8 +165,8 @@ public class PageFieldsController extends ControllerBaseWithSidebar {
 
     @FXML
     private void viewFieldDetails(Parcelle field) {
-        // Store the selected field ID in a static variable or use a service to pass it
-        // to the detail page controller
+        // Store the selected field ID in the detail controller's static variable
+        PageFieldDetailController.setSelectedParcelleId(field.getId());
         App.navigateTo("page_field_detail");
     }
 

@@ -136,6 +136,38 @@ public class ParcelleCultureService {
     }
     
     /**
+     * Get all parcelle-cultures for a specific parcelle
+     * @param parcelleId The ID of the parcelle
+     * @return List of all parcelle-cultures for the specified parcelle
+     */
+    public List<ParcelleCulture> getAllByParcelleId(int parcelleId) throws SQLException {
+        List<ParcelleCulture> parcelleCultures = new ArrayList<>();
+        String query = "SELECT pc.*, p.id as parcelleId, p.nom as parcelleNom, p.longuerMetre, p.largeurMetre, "
+                + "p.localisationCity, p.proprietaireId, p.imagePath as parcelleImage, p.dateCreation, "
+                + "c.id as cultureId, c.nom as cultureNom, c.besoinEau, c.besoinNutriments, "
+                + "c.imagePath as cultureImage, c.description, "
+                + "m.id as maladieId, m.nom as maladieNom, m.description as maladieDesc, "
+                + "m.traitement, m.symptomes "
+                + "FROM ParcelleCulture pc "
+                + "JOIN Parcelle p ON pc.parcelleId = p.id "
+                + "JOIN Culture c ON pc.cultureId = c.id "
+                + "LEFT JOIN Maladie m ON pc.maladieId = m.id "
+                + "WHERE pc.parcelleId = ?"; 
+        
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
+            ps.setInt(1, parcelleId);
+            
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    parcelleCultures.add(mapResultSetToParcelleCulture(rs));
+                }
+            }
+        }
+        
+        return parcelleCultures;
+    }
+    
+    /**
      * Get all parcelle-cultures
      * @return List of all parcelle-cultures
      */
