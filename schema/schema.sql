@@ -52,27 +52,16 @@ CREATE TABLE JournalConnexion (
     FOREIGN KEY (utilisateurId) REFERENCES Utilisateur(id) ON DELETE SET NULL
 );
 
--- Location table
-CREATE TABLE Localisation (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nomCity VARCHAR(150) NOT NULL,
-    latitude DOUBLE,
-    longitude DOUBLE
-);
-
 -- Plot/Field table (added area and image fields)
 CREATE TABLE Parcelle (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nom VARCHAR(100) NOT NULL,
-    superficie DOUBLE NOT NULL,
-    area DOUBLE NOT NULL,  -- Added field for area in hectares or other unit
-    localisationId INT NOT NULL,
+    longuerMetre DOUBLE NOT NULL,
+    largeurMetre DOUBLE NOT NULL,
+    localisationCity VARCHAR(200) NOT NULL, -- La localisation de la parcelle
     proprietaireId INT NOT NULL,
     imagePath VARCHAR(255),  -- Added field for storing image path
-    statut ENUM('NORMAL', 'NEEDS_ATTENTION', 'CRITICAL') DEFAULT 'NORMAL',
     dateCreation TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    derniereMiseAJour TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (localisationId) REFERENCES Localisation(id),
     FOREIGN KEY (proprietaireId) REFERENCES Utilisateur(id)
 );
 
@@ -95,13 +84,12 @@ CREATE TABLE Maladie (
     symptomes TEXT  -- Added symptoms field
 );
 
--- Junction table for Parcelle-Culture many-to-many relationship
 CREATE TABLE ParcelleCulture (
     id INT AUTO_INCREMENT PRIMARY KEY,  -- Added PK for easier referencing
     parcelleId INT NOT NULL,
     cultureId INT NOT NULL,
+    maladieId INT,
     statut ENUM('HEALTHY', 'SICK', 'HARVESTED', 'FAILED') DEFAULT 'HEALTHY',  -- Added status field
-    maladieId INT,  -- Reference to disease if present
     dateAjout TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
     UNIQUE KEY unique_parcelle_culture (parcelleId, cultureId),  -- Changed to UNIQUE constraint
     FOREIGN KEY (parcelleId) REFERENCES Parcelle(id) ON DELETE CASCADE,
@@ -153,11 +141,9 @@ CREATE TABLE Meteo (
     humidite DOUBLE NOT NULL,
     conditions VARCHAR(100) NOT NULL,
     parcelleId INT NOT NULL,
-    localisationId INT NOT NULL,
     alerteMeteo BOOLEAN DEFAULT FALSE,  -- Added field for weather alerts
     messageAlerte VARCHAR(255),  -- Added field for alert messages
-    FOREIGN KEY (parcelleId) REFERENCES Parcelle(id),
-    FOREIGN KEY (localisationId) REFERENCES Localisation(id)
+    FOREIGN KEY (parcelleId) REFERENCES Parcelle(id)
 );
 
 -- Crop History table
@@ -218,7 +204,6 @@ CREATE INDEX idx_parcelle_proprietaire ON Parcelle(proprietaireId);
 CREATE INDEX idx_parcelle_culture_parcelle ON ParcelleCulture(parcelleId);
 CREATE INDEX idx_parcelle_culture_culture ON ParcelleCulture(cultureId);
 CREATE INDEX idx_rapportculture_parcelle_culture ON RapportCulture(parcelleCultureId);
-CREATE INDEX idx_meteo_localisation ON Meteo(localisationId);
 CREATE INDEX idx_meteo_parcelle ON Meteo(parcelleId);
 CREATE INDEX idx_notification_utilisateur ON Notification(utilisateurId);
 CREATE INDEX idx_usertoken_token ON AuthToken(token);

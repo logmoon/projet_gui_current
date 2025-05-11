@@ -23,9 +23,6 @@ public class PageFieldsController extends ControllerBaseWithSidebar {
     private TableColumn<Parcelle, String> locationColumn;
 
     @FXML
-    private TableColumn<Parcelle, String> statusColumn;
-
-    @FXML
     private TableColumn<Parcelle, String> cropsColumn;
 
     @FXML

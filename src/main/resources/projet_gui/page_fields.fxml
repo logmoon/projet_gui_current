@@ -39,7 +39,6 @@
                                 <TableColumn fx:id="nameColumn" prefWidth="150.0" text="Name" />
                                 <TableColumn fx:id="areaColumn" prefWidth="100.0" text="Area" />
                                 <TableColumn fx:id="locationColumn" prefWidth="150.0" text="Location" />
-                                <TableColumn fx:id="statusColumn" prefWidth="100.0" text="Status" />
                                 <TableColumn fx:id="cropsColumn" prefWidth="150.0" text="Active Crops" />
                                 <TableColumn fx:id="actionsColumn" prefWidth="100.0" text="Actions" />
                             </columns>

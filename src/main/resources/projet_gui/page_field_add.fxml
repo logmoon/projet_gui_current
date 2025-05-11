@@ -56,23 +56,20 @@
                                                 <Label text="Name:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                                                 <TextField fx:id="fieldNameField" GridPane.columnIndex="1" GridPane.rowIndex="0" />
                                                 
-                                                <Label text="Superficie (ha):" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                                                <TextField fx:id="superficieField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                <Label text="Longuer (Metres):" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                                <TextField fx:id="longueurField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                                 
-                                                <Label text="Area (ha):" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-                                                <TextField fx:id="fieldAreaField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                                <Label text="Largeur (Metres):" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                                <TextField fx:id="largeurField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                                 
                                                 <Label text="Location:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-                                                <ComboBox fx:id="locationComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                                <TextField fx:id="locationComboBox" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                                 
                                                 <Label text="Image:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
                                                 <HBox GridPane.columnIndex="1" GridPane.rowIndex="5" spacing="5">
                                                     <TextField fx:id="imagePathField" />
                                                     <Button mnemonicParsing="false" onAction="#chooseImage" text="Browse..." />
                                                 </HBox>
-                                                
-                                                <Label text="Status:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
-                                                <ComboBox fx:id="statusComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                                             </children>
                                         </GridPane>
                                         <HBox spacing="10.0">

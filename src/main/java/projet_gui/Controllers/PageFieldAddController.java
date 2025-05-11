@@ -18,22 +18,16 @@ public class PageFieldAddController extends ControllerBaseWithSidebar {
     private TextField fieldNameField;
 
     @FXML
-    private TextField superficieField;
+    private TextField longueurField;
 
     @FXML
-    private TextField fieldAreaField;
+    private TextField largeurField;
 
     @FXML
-    private ComboBox<String> locationComboBox;
-
-    @FXML
-    private ComboBox<Utilisateur> ownerComboBox;
+    private TextField locationComboBox;
 
     @FXML
     private TextField imagePathField;
-
-    @FXML
-    private ComboBox<String> statusComboBox;
 
     @Override
     public void initializePageContent() {
@@ -80,12 +74,11 @@ public class PageFieldAddController extends ControllerBaseWithSidebar {
         try {
             Parcelle parcelle = new Parcelle(
                 fieldNameField.getText(),
-                Double.parseDouble(superficieField.getText()),
-                Double.parseDouble(fieldAreaField.getText()),
-                new Localisation(locationComboBox.getValue()),
+                Double.parseDouble(longueurField.getText()),
+                Double.parseDouble(largeurField.getText()),
+                locationComboBox.getText(),
                 AuthService.getInstance().getCurrentToken().getUser(),
-                imagePathField.getText(),
-                statusComboBox.getValue()
+                imagePathField.getText()
             );
             // TODO: Save parcelle to database
         } catch (Exception e) {
