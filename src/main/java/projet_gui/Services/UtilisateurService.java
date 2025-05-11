@@ -40,7 +40,7 @@ public class UtilisateurService {
         
         try (PreparedStatement pst = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             // Create temporary user object to validate and hash password
-            Utilisateur tempUser = createUser(0, nom, prenom, email, password, role, true);
+            Utilisateur tempUser = createUserToRegister(0, nom, prenom, email, password, role, true);
             
             pst.setString(1,  tempUser.getNom());
             pst.setString(2,  tempUser.getPrenom());
@@ -296,6 +296,26 @@ public class UtilisateurService {
         
         return createUser(id, nom, prenom, email, pwdHash, role, actif);
     }
+    
+
+    private Utilisateur createUserToRegister(int id, String nom, String prenom, String email, String pwd, Role role, boolean actif) {
+        Utilisateur user = new Utilisateur();
+        
+        if (id > 0) {
+            user.setId(id);
+        }
+        
+        user.setNom(nom);
+        user.setPrenom(prenom);
+        user.setEmail(email);
+        user.setPwd(pwd);
+        user.setPrenom(prenom);
+        user.setRole(role);
+        user.setActif(actif);
+        
+        return user;
+    }
+
     
     // Helper method to create user instance
     private Utilisateur createUser(int id, String nom, String prenom, String email, String pwdHash, Role role, boolean actif) {
