@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="mainLayout" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" stylesheets="@styles/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projet_gui.Controllers.AdminUserDetailsController">
+   <center>
+      <BorderPane styleClass="main-container" BorderPane.alignment="CENTER">
+         <top>
+            <HBox alignment="CENTER_LEFT" prefHeight="60.0" styleClass="header" BorderPane.alignment="CENTER">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#goBack" styleClass="button-back" text="Back" />
+                  <Label styleClass="header-title" text="User Details">
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets left="20.0" right="20.0" />
+               </padding>
+            </HBox>
+         </top>
+         <center>
+            <VBox spacing="20.0" BorderPane.alignment="CENTER">
+               <children>
+                  <VBox styleClass="card">
+                     <children>
+                        <Label styleClass="section-title" text="User Information" />
+                        <HBox spacing="10.0">
+                           <children>
+                              <Label text="Name:" />
+                              <Label fx:id="nameLabel" text="John Doe" />
+                           </children>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox spacing="10.0">
+                           <children>
+                              <Label text="Email:" />
+                              <Label fx:id="emailLabel" text="john.doe@example.com" />
+                           </children>
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox spacing="10.0">
+                           <children>
+                              <Label text="Status:" />
+                              <Label fx:id="statusLabel" text="Active" />
+                           </children>
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                        </HBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                     </padding>
+                  </VBox>
+                  <VBox styleClass="card" VBox.vgrow="ALWAYS">
+                     <children>
+                        <Label styleClass="section-title" text="Fields" />
+                        <TableView fx:id="fieldsTable" prefHeight="150.0">
+                          <columns>
+                            <TableColumn fx:id="fieldIdColumn" prefWidth="50.0" text="ID" />
+                            <TableColumn fx:id="fieldNameColumn" prefWidth="150.0" text="Name" />
+                            <TableColumn fx:id="fieldLocationColumn" prefWidth="150.0" text="Location" />
+                            <TableColumn fx:id="fieldSizeColumn" prefWidth="100.0" text="Size (ha)" />
+                          </columns>
+                        </TableView>
+                     </children>
+                     <padding>
+                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                     </padding>
+                  </VBox>
+                  <VBox styleClass="card" VBox.vgrow="ALWAYS">
+                     <children>
+                        <Label styleClass="section-title" text="Crops" />
+                        <TableView fx:id="cropsTable" prefHeight="150.0">
+                          <columns>
+                            <TableColumn fx:id="cropIdColumn" prefWidth="50.0" text="ID" />
+                            <TableColumn fx:id="cropNameColumn" prefWidth="150.0" text="Name" />
+                            <TableColumn fx:id="cropFieldColumn" prefWidth="150.0" text="Field" />
+                            <TableColumn fx:id="cropStatusColumn" prefWidth="100.0" text="Status" />
+                          </columns>
+                        </TableView>
+                     </children>
+                     <padding>
+                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                     </padding>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+            </VBox>
+         </center>
+      </BorderPane>
+   </center>
+</BorderPane>

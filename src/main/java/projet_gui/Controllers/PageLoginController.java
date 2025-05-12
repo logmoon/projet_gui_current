@@ -103,7 +103,7 @@ public class PageLoginController extends ControllerBase {
                     
                     clearFields();
 
-                    App.navigateTo("page_dashboard");
+                    App.navigateTo("page_dashboard", "admin_dashboard");
                 }
                 else {
                     // We shouldn't be able to get here, but yeah

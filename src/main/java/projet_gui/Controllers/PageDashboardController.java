@@ -32,7 +32,8 @@ public class PageDashboardController extends ControllerBaseWithSidebar {
 
     @Override
     public boolean canEnter() {
-        return AuthService.getInstance().isAuthenticated();
+        return AuthService.getInstance().isAuthenticated() &&
+               AuthService.getInstance().getCurrentToken().getUser().isAdmin() == false;
     }
 
     private void loadDashboardData() {
@@ -42,19 +43,16 @@ public class PageDashboardController extends ControllerBaseWithSidebar {
 
     @FXML
     private void addNewField(ActionEvent event) {
-        // TODO: Implement new field creation
         App.navigateTo("page_field_add");
     }
 
     @FXML
     private void addNewTask(ActionEvent event) {
-        // TODO: Implement new task creation
         App.navigateTo("page_tasks");
     }
 
     @FXML
     private void viewWeather(ActionEvent event) {
-        // TODO: Implement weather view navigation
         App.navigateTo("page_weather");
     }
 }

@@ -2,7 +2,9 @@ package projet_gui.Controllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
+import projet_gui.Services.AuthService;
 import projet_gui.Utils.FXMLUtils;
 
 import java.io.IOException;
@@ -13,8 +15,6 @@ public abstract class ControllerBase implements Initializable {
     
     @FXML
     protected BorderPane mainLayout;
-    
-    protected SidebarController sidebarController;
     
     /**
      * Determines if the user can enter this page.
@@ -56,16 +56,18 @@ public abstract class ControllerBase implements Initializable {
      */
     private void injectSidebar() {
         try {
-            // Load sidebar
-            // NOTE: WE PASS IN FALSE JUST FOR THE TIME BEING
-            // TODO: UPDATE THIS TO CHANGE DEPENDING ON THE USER, This change should be implemented when we create the admin sidebar
-            FXMLUtils.SidebarResult sidebarResult = FXMLUtils.loadSidebar(false);
+            // Check if the current user is an admin
+            boolean isAdmin = false;
+            AuthService authService = AuthService.getInstance();
+            if (authService.isAuthenticated() && authService.getCurrentToken() != null) {
+                isAdmin = authService.getCurrentToken().getUser().isAdmin();
+            }
+            
+            // Load the appropriate sidebar based on user role
+            Node view = FXMLUtils.loadSidebar(isAdmin);
             
             // Set sidebar as the left component of the BorderPane
-            mainLayout.setLeft(sidebarResult.getView());
-            
-            // Save controller reference for later use (just in case)
-            sidebarController = sidebarResult.getController();
+            mainLayout.setLeft(view);
             
         } catch (IOException e) {
             e.printStackTrace();
