@@ -20,7 +20,6 @@ import projet_gui.Services.AuthService;
 import projet_gui.Services.ParcelleService;
 import projet_gui.Utils.Alerts;
 import projet_gui.Utils.DataStore;
-import projet_gui.Services.ParcelleCultureService;
 import projet_gui.Entities.Parcelle;
 import projet_gui.Controllers.PageFieldDetailController;
 

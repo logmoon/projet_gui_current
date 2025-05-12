@@ -26,9 +26,7 @@ import projet_gui.Services.ParcelleService;
 import projet_gui.Utils.Alerts;
 import projet_gui.Utils.DataStore;
 import projet_gui.Utils.FileDialogUtils;
-import projet_gui.Services.ParcelleCultureService;
 import projet_gui.Entities.Parcelle;
-import projet_gui.Entities.ParcelleCulture;
 import projet_gui.Entities.Culture;
 
 import java.io.File;
