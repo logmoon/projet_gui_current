@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane fx:id="mainLayout" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" stylesheets="@styles/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projet_gui.Controllers.FieldCropAssociationAddController">
+    <center>
+        <BorderPane styleClass="main-container" BorderPane.alignment="CENTER">
+            <top>
+                <HBox alignment="CENTER_LEFT" prefHeight="60.0" styleClass="header" BorderPane.alignment="CENTER">
+                    <children>
+                        <Button mnemonicParsing="false" onAction="#navigateToAssociations" styleClass="button-text">
+                            <graphic>
+                                <Label text="Back to Associations" />
+                            </graphic>
+                        </Button>
+                        <Label styleClass="header-title" text="Add New Association" HBox.hgrow="ALWAYS">
+                            <HBox.margin>
+                                <Insets left="20.0" />
+                            </HBox.margin>
+                        </Label>
+                    </children>
+                    <padding>
+                        <Insets left="20.0" right="20.0" />
+                    </padding>
+                </HBox>
+            </top>
+            <center>
+                <ScrollPane fitToWidth="true" styleClass="main-container">
+                    <content>
+                        <VBox spacing="20.0">
+                            <padding>
+                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                            </padding>
+                            <children>
+                                <Label styleClass="label" text="Select Field *" />
+                                <ComboBox fx:id="fieldComboBox" promptText="Select a field" />
+                                <Label styleClass="label" text="Select Crop *" />
+                                <ComboBox fx:id="cropComboBox" promptText="Select a crop" />
+                                <Label styleClass="label" text="Status *" />
+                                <ComboBox fx:id="statusComboBox" promptText="Select status" />
+                                <Label styleClass="label" text="Disease (Optional)" />
+                                <ComboBox fx:id="diseaseComboBox" promptText="Select a disease" />
+                                <HBox alignment="CENTER" spacing="10.0">
+                                    <children>
+                                        <Button onAction="#navigateToAssociations" styleClass="button-secondary" text="Cancel" />
+                                        <Button onAction="#saveAssociation" styleClass="button-primary" text="Save Association" />
+                                    </children>
+                                </HBox>
+                            </children>
+                        </VBox>
+                    </content>
+                </ScrollPane>
+            </center>
+        </BorderPane>
+    </center>
+</BorderPane>

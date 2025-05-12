@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="projet_gui.Controllers.WeatherController"
+            stylesheets="@styles/styles.css"
+            prefHeight="500.0" prefWidth="600.0">
+
+    <VBox fx:id="mainContainer" alignment="TOP_CENTER" spacing="20"
+          AnchorPane.topAnchor="20" AnchorPane.bottomAnchor="20"
+          AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20">
+
+        <!-- Header -->
+        <Label text="Météo Vert" styleClass="header-label"/>
+
+        <!-- Search Section -->
+        <HBox alignment="CENTER" spacing="10" styleClass="search-box">
+            <TextField fx:id="cityField" promptText="Entrez une ville" styleClass="city-input"/>
+            <Button fx:id="getWeatherBtn" text="Rechercher" styleClass="search-button"/>
+        </HBox>
+
+        <!-- Weather Display -->
+        <VBox fx:id="weatherDisplay" alignment="CENTER" spacing="15" styleClass="weather-container">
+            <ImageView fx:id="weatherIcon" fitWidth="120" fitHeight="120" preserveRatio="true"/>
+            <Label fx:id="weatherResult" styleClass="weather-text" wrapText="true"/>
+            <HBox alignment="CENTER" spacing="10" styleClass="details-box">
+                <Label fx:id="temperatureLabel" styleClass="detail-label"/>
+                <Label fx:id="humidityLabel" styleClass="detail-label"/>
+                <Label fx:id="windLabel" styleClass="detail-label"/>
+            </HBox>
+        </VBox>
+
+    </VBox>
+</AnchorPane>

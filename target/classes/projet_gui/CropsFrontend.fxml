@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import java.net.URL?>
+
+<VBox xmlns="http://javafx.com/javafx/8.0.171"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="projet_gui.Controllers.CropsFrontend"
+      styleClass="main-container">
+
+    <stylesheets>
+        <URL value="@styles/styles.css" />
+    </stylesheets>
+
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <!-- Header -->
+    <VBox spacing="5" styleClass="header-section">
+        <Text text="Crop Catalog" styleClass="header-title"/>
+        <Text text="Browse and discover various crops with their requirements" styleClass="header-subtitle"/>
+    </VBox>
+
+    <!-- Search and Filters -->
+    <HBox spacing="15" alignment="CENTER_LEFT" styleClass="filter-section">
+        <TextField fx:id="searchField" promptText="Search crops..." styleClass="search-field"/>
+        <ComboBox fx:id="filterComboBox" styleClass="filter-combo"/>
+        <Button fx:id="clearFiltersButton" text="Clear Filters" styleClass="clear-button"/>
+    </HBox>
+
+    <!-- Pagination and Results -->
+    <VBox spacing="10">
+        <Pagination fx:id="paginationControl" styleClass="modern-pagination"/>
+        <FlowPane fx:id="cropsContainer" hgap="20" vgap="20" styleClass="crops-flow-pane"/>
+    </VBox>
+</VBox>

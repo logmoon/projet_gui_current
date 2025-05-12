@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="projet_gui.Controllers.FrontController">
+
+    <!-- Top Navbar -->
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="20" style="-fx-background-color: #111; -fx-padding: 10;">
+            <Label text="JON" style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;" />
+            <Region HBox.hgrow="ALWAYS" />
+            <HBox spacing="10">
+                <Button fx:id="homeButton" text="HOME" style="-fx-background-color: transparent; -fx-text-fill: #176722;" />
+                <Button fx:id="aboutButton" text="ABOUT" style="-fx-background-color: transparent; -fx-text-fill: white;" />
+                <Button fx:id="productsButton" text="PRODUCTS" style="-fx-background-color: transparent; -fx-text-fill: white;" />
+                <Button fx:id="cropsButton" text="CROPS" style="-fx-background-color: transparent; -fx-text-fill: white;" />
+                <Button fx:id="blogButton" text="BLOG" style="-fx-background-color: transparent; -fx-text-fill: white;" />
+                <Button fx:id="contactButton" text="CONTACT" style="-fx-background-color: transparent; -fx-text-fill: white;" />
+                <Button fx:id="quoteButton" text="GET A QUOTE" style="-fx-background-color: #144b1b; -fx-text-fill: white;" />
+            </HBox>
+        </HBox>
+    </top>
+
+    <!-- Center Hero Section -->
+    <center>
+        <StackPane fx:id="stackPane">
+            <!-- Background Image -->
+            <ImageView fx:id="backgroundImageView">
+                <image>
+                    <Image url="@images/background.jpg" />
+                </image>
+                <preserveRatio>false</preserveRatio>
+            </ImageView>
+
+            <!-- Content Overlay -->
+            <VBox alignment="CENTER" spacing="20" style="-fx-background-color: rgba(0,0,0,0.3);">
+                <padding>
+                    <Insets top="150" right="150" bottom="150" left="150"/>
+                </padding>
+                <Label text="FARMING COMPANY"
+                       style="-fx-text-fill: white; -fx-font-size: 40px; -fx-font-weight: bold;" />
+                <Label text="It is a long established fact that a reader will be distracted by the readable content of a page..."
+                       style="-fx-text-fill: white; -fx-font-size: 14px;" wrapText="true" maxWidth="600" />
+                <Button fx:id="discoverButton" text="Discover"
+                        style="-fx-border-color: #144b1b; -fx-text-fill: #176722; -fx-background-color: transparent; -fx-padding: 8 20;" />
+            </VBox>
+        </StackPane>
+    </center>
+</BorderPane>
