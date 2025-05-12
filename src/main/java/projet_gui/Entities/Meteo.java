@@ -9,7 +9,6 @@ public class Meteo {
     private Double humidite;
     private String conditions;
     private Parcelle parcelle;
-    private Localisation localisation;
     private Boolean alerteMeteo;
     private String messageAlerte;
 
@@ -17,20 +16,19 @@ public class Meteo {
     }
 
     public Meteo(Timestamp date, Double temperature, Double humidite, String conditions,
-                Parcelle parcelle, Localisation localisation, Boolean alerteMeteo, String messageAlerte) {
+                Parcelle parcelle, Boolean alerteMeteo, String messageAlerte) {
         this.date = date;
         this.temperature = temperature;
         this.humidite = humidite;
         this.conditions = conditions;
         this.parcelle = parcelle;
-        this.localisation = localisation;
         this.alerteMeteo = alerteMeteo;
         this.messageAlerte = messageAlerte;
     }
 
     public Meteo(int id, Timestamp date, Double temperature, Double humidite, String conditions,
-                Parcelle parcelle, Localisation localisation, Boolean alerteMeteo, String messageAlerte) {
-        this(date, temperature, humidite, conditions, parcelle, localisation, alerteMeteo, messageAlerte);
+                Parcelle parcelle, Boolean alerteMeteo, String messageAlerte) {
+        this(date, temperature, humidite, conditions, parcelle, alerteMeteo, messageAlerte);
         this.id = id;
     }
 
@@ -78,14 +76,6 @@ public class Meteo {
         this.parcelle = parcelle;
     }
 
-    public Localisation getLocalisation() { return localisation; }
-    public void setLocalisation(Localisation localisation) {
-        if (localisation == null) {
-            throw new IllegalArgumentException("Location cannot be null");
-        }
-        this.localisation = localisation;
-    }
-
     public Boolean getAlerteMeteo() { return alerteMeteo; }
     public void setAlerteMeteo(Boolean alerteMeteo) {
         this.alerteMeteo = alerteMeteo != null ? alerteMeteo : false;
@@ -103,7 +93,6 @@ public class Meteo {
                 ", humidite=" + humidite +
                 ", conditions='" + conditions + '\'' +
                 ", parcelle=" + parcelle +
-                ", localisation=" + localisation +
                 ", alerteMeteo=" + alerteMeteo +
                 ", messageAlerte='" + messageAlerte + '\'' +
                 '}';
