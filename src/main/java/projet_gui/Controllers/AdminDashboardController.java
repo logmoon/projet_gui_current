@@ -30,9 +30,6 @@ public class AdminDashboardController extends ControllerBaseWithSidebar {
     private TableView<Utilisateur> usersTable;
 
     @FXML
-    private TableColumn<Utilisateur, Integer> idColumn;
-
-    @FXML
     private TableColumn<Utilisateur, String> nameColumn;
 
     @FXML
@@ -62,7 +59,6 @@ public class AdminDashboardController extends ControllerBaseWithSidebar {
 
     private void setupTable() {
         // Configure table columns
-        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         nameColumn.setCellValueFactory(cellData -> {
             Utilisateur user = cellData.getValue();
             return javafx.beans.binding.Bindings.createStringBinding(

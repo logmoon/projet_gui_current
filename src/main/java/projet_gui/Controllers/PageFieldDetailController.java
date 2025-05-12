@@ -24,6 +24,7 @@ import projet_gui.App;
 import projet_gui.Services.AuthService;
 import projet_gui.Services.ParcelleService;
 import projet_gui.Utils.Alerts;
+import projet_gui.Utils.DataStore;
 import projet_gui.Utils.FileDialogUtils;
 import projet_gui.Services.ParcelleCultureService;
 import projet_gui.Entities.Parcelle;
@@ -91,11 +92,6 @@ public class PageFieldDetailController extends ControllerBaseWithSidebar {
     private ParcelleService parcelleService;
     private ParcelleCultureService parcelleCultureService;
     private Parcelle currentParcelle;
-    private static int selectedParcelleId = -1;
-    
-    public static void setSelectedParcelleId(int id) {
-        selectedParcelleId = id;
-    }
 
     @Override
     public void initializePageContent() {
@@ -119,9 +115,8 @@ public class PageFieldDetailController extends ControllerBaseWithSidebar {
     
     private void loadParcelle() {
         try {
-            // For now, we'll use the static variable to get the selected parcelle ID
-            // In a real application, you might want to use a more robust approach
-            if (selectedParcelleId == -1) {
+            Integer selectedParcelleId = DataStore.get("selectedParcelleId", Integer.class);
+            if (selectedParcelleId == null) {
                 // No parcelle selected, show error and navigate back
                 Alerts.showAlert(AlertType.ERROR, "Error", "No field selected");
                 App.navigateTo("page_fields");

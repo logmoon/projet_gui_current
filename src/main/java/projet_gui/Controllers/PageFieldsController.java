@@ -19,6 +19,7 @@ import projet_gui.App;
 import projet_gui.Services.AuthService;
 import projet_gui.Services.ParcelleService;
 import projet_gui.Utils.Alerts;
+import projet_gui.Utils.DataStore;
 import projet_gui.Services.ParcelleCultureService;
 import projet_gui.Entities.Parcelle;
 import projet_gui.Controllers.PageFieldDetailController;
@@ -165,8 +166,8 @@ public class PageFieldsController extends ControllerBaseWithSidebar {
 
     @FXML
     private void viewFieldDetails(Parcelle field) {
-        // Store the selected field ID in the detail controller's static variable
-        PageFieldDetailController.setSelectedParcelleId(field.getId());
+        // Store the selected field
+        DataStore.set("selectedParcelleId", field.getId());
         App.navigateTo("page_field_detail");
     }
 

@@ -24,7 +24,7 @@ public class App extends Application {
         stage.setScene(scene);
         stage.show();
 
-        navigateTo("page_dashboard");
+        navigateTo("page_login");
     }
 
     public static void navigateTo(String fxml) {
