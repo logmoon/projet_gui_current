@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import projet_gui.App;
 import projet_gui.Services.AuthService;
+import projet_gui.Services.EmailService;
 import projet_gui.Services.PasswordResetService;
 import projet_gui.Utils.Alerts;
 
@@ -48,10 +49,11 @@ public class PageForgotPasswordController extends ControllerBase {
                 // Generate and send verification code
                 String code = passwordResetService.generateVerificationCode(email);
                 
-                // TODO: Send verification code via email
+                // Send verification code via email
+                EmailService.getInstance().sendPasswordRecoveryEmail(email, code);
+
                 Alerts.showAlert(Alert.AlertType.INFORMATION, "Verification Code Sent", 
                     "A verification code has been sent to " + email + ".");
-                System.out.println("Verification code: " + code);
                 
                 // Navigate to reset password page with the email
                 App.navigateTo("page_reset_password");

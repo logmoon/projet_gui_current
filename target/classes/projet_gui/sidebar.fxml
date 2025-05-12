@@ -8,7 +8,7 @@
 
 <VBox fx:id="sidebar" prefHeight="600.0" prefWidth="200.0" styleClass="sidebar" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projet_gui.Controllers.SidebarController">
     <children>
-        <Label styleClass="header-title" text="Farmer Assistant" textFill="WHITE">
+        <Label styleClass="header-title" text="FarmerAssist" textFill="WHITE">
             <font>
                 <Font name="System Bold" size="18.0" />
             </font>

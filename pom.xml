@@ -10,6 +10,13 @@
         <maven.compiler.target>17</maven.compiler.target>
     </properties>
     <dependencies>
+
+        <dependency>
+            <groupId>io.github.cdimascio</groupId>
+            <artifactId>dotenv-java</artifactId>
+            <version>3.2.0</version>
+        </dependency>
+
         <dependency>
             <groupId>javax.mail</groupId>
             <artifactId>mail</artifactId>

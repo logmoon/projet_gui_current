@@ -5,7 +5,6 @@ import projet_gui.Utils.DataSource;
 import java.security.SecureRandom;
 import java.sql.*;
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 public class PasswordResetService {
     
@@ -56,8 +55,6 @@ public class PasswordResetService {
             pst.setBoolean(4, true);
             
             pst.executeUpdate();
-            
-            // TODO: Send the verification code via email
             
             return code;
         }
