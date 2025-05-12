@@ -27,6 +27,29 @@ public class UtilisateurService {
     }
     
     /**
+     * Update a user's password
+     * @param email The user's email
+     * @param newPassword The new password
+     * @return true if the password was updated successfully, false otherwise
+     */
+    public boolean updatePassword(String email, String newPassword) throws SQLException {
+        String query = "UPDATE utilisateur SET motDePasse = ? WHERE email = ?";
+        
+        try (PreparedStatement pst = connection.prepareStatement(query)) {
+            // Create temporary user to hash the new password
+            Utilisateur tempUser = new Utilisateur();
+            tempUser.setPwd(newPassword);
+            String hashedPassword = tempUser.getPwdHash();
+            
+            pst.setString(1, hashedPassword);
+            pst.setString(2, email);
+            
+            int affectedRows = pst.executeUpdate();
+            return affectedRows > 0;
+        }
+    }
+    
+    /**
      * Register a new user
      * @return true if registration successful, false otherwise
      */

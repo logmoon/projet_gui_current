@@ -55,10 +55,6 @@ public class PageInscriptionController extends ControllerBase {
                 "Unknown Error: " + e.getMessage());
         }
     }
-
-    @FXML
-    private void signupAsAdmin(ActionEvent event) {
-    }
     
     @FXML
     private void inscrire(ActionEvent event) {

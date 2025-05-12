@@ -68,6 +68,7 @@ public class PageLoginController extends ControllerBase {
 
     @FXML
     private void recoverPassword(ActionEvent event) {
+        App.navigateTo("page_forgot_password");
     }
 
     @FXML

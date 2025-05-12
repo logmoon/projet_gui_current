@@ -23,6 +23,10 @@ CREATE TABLE Utilisateur (
     FOREIGN KEY (role) REFERENCES Role(id)
 );
 
+-- Create an admin user (admin1 is the password)
+INSERT INTO Utilisateur (nom, prenom, email, motDePasse, role) VALUES 
+('Admin', 'User', 'admin@admin.com', '25f43b1486ad95a1398e3eeb3d83bc4010015fcc9bedb35b432e00298d5021f7', 'ADMIN');
+
 CREATE TABLE AuthToken (
     id INT AUTO_INCREMENT PRIMARY KEY,
     utilisateurId INT NOT NULL,
