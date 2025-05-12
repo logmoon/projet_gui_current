@@ -7,20 +7,22 @@ public class Maladie {
     private String traitement;
     private String symptomes;
     private String imagePath;
+    private Culture culture;
 
     public Maladie() {
     }
 
-    public Maladie(String nom, String description, String traitement, String symptomes, String imagePath) {
+    public Maladie(String nom, String description, String traitement, String symptomes, String imagePath, Culture culture) {
         this.nom = nom;
         this.description = description;
         this.traitement = traitement;
         this.symptomes = symptomes;
         this.imagePath = imagePath;
+        this.culture = culture;
     }
 
-    public Maladie(int id, String nom, String description, String traitement, String symptomes, String imagePath) {
-        this(nom, description, traitement, symptomes, imagePath);
+    public Maladie(int id, String nom, String description, String traitement, String symptomes, String imagePath, Culture culture) {
+        this(nom, description, traitement, symptomes, imagePath, culture);
         this.id = id;
     }
 
@@ -58,6 +60,9 @@ public class Maladie {
     public String getImagePath() { return imagePath; }
     public void setImagePath(String imagePath) { this.imagePath = imagePath; }
 
+    public Culture getCulture() { return culture; }
+    public void setCultureId(Culture culture) { this.culture = culture; }
+
     @Override
     public String toString() {
         return "Maladie{" +
@@ -67,6 +72,7 @@ public class Maladie {
                 ", traitement='" + traitement + '\'' +
                 ", symptomes='" + symptomes + '\'' +
                 ", imagePath='" + imagePath + '\'' +
+                ", culture=" + culture +
                 '}';
     }
 }

@@ -5,22 +5,30 @@ public class Culture {
     private String nom;
     private Double besoinEau;
     private Double besoinNutriments;
+    private Statut statut;
     private String imagePath;
+    private Parcelle parcelle;
     private String description;
+
+    public enum Statut {
+        HEALTHY, SICK, HARVESTED, FAILED
+    }
 
     public Culture() {
     }
 
-    public Culture(String nom, Double besoinEau, Double besoinNutriments, String imagePath, String description) {
+    public Culture(String nom, Double besoinEau, Double besoinNutriments, Statut statut, String imagePath, Parcelle parcelle, String description) {
         this.nom = nom;
         this.besoinEau = besoinEau;
         this.besoinNutriments = besoinNutriments;
+        this.statut = statut;
         this.imagePath = imagePath;
+        this.parcelle = parcelle;
         this.description = description;
     }
 
-    public Culture(int id, String nom, Double besoinEau, Double besoinNutriments, String imagePath, String description) {
-        this(nom, besoinEau, besoinNutriments, imagePath, description);
+    public Culture(int id, String nom, Double besoinEau, Double besoinNutriments, Statut statut, String imagePath, Parcelle parcelle, String description) {
+        this(nom, besoinEau, besoinNutriments, statut, imagePath, parcelle, description);
         this.id = id;
     }
 
@@ -55,6 +63,12 @@ public class Culture {
     public String getImagePath() { return imagePath; }
     public void setImagePath(String imagePath) { this.imagePath = imagePath; }
 
+    public Statut getStatut() { return statut; }
+    public void setStatut(Statut statut) { this.statut = statut; }
+
+    public Parcelle getParcelle() { return parcelle; }
+    public void setParcelle(Parcelle parcelle) { this.parcelle = parcelle; }
+
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
 
@@ -66,6 +80,8 @@ public class Culture {
                 ", besoinEau=" + besoinEau +
                 ", besoinNutriments=" + besoinNutriments +
                 ", imagePath='" + imagePath + '\'' +
+                ", statut=" + statut +
+                ", parcelle=" + parcelle +
                 ", description='" + description + '\'' +
                 '}';
     }
