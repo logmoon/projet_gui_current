@@ -17,9 +17,11 @@ import javafx.util.Callback;
 
 import projet_gui.App;
 import projet_gui.Services.AuthService;
+import projet_gui.Services.CultureService;
 import projet_gui.Services.ParcelleService;
 import projet_gui.Utils.Alerts;
 import projet_gui.Utils.DataStore;
+import projet_gui.Entities.Culture;
 import projet_gui.Entities.Parcelle;
 import projet_gui.Controllers.PageFieldDetailController;
 
@@ -48,12 +50,12 @@ public class PageFieldsController extends ControllerBaseWithSidebar {
     private TableColumn<Parcelle, Void> actionsColumn;
     
     private ParcelleService parcelleService;
-    private ParcelleCultureService parcelleCultureService;
+    private CultureService cultureService;
 
     @Override
     public void initializePageContent() {
         parcelleService = ParcelleService.getInstance();
-        parcelleCultureService = ParcelleCultureService.getInstance();
+        cultureService = CultureService.getInstance();
         
         // Initialize table columns
         setupTableColumns();
@@ -96,8 +98,17 @@ public class PageFieldsController extends ControllerBaseWithSidebar {
         cropsColumn.setCellValueFactory(cellData -> {
             Parcelle parcelle = cellData.getValue();
             try {
-                String activeCrops = parcelleCultureService.getActiveCropsNames(parcelle.getId());
-                return new SimpleStringProperty(activeCrops.isEmpty() ? "None" : activeCrops);
+                List<Culture> activeCrops = cultureService.getCulturesByParcelleId(parcelle.getId());
+                if (activeCrops.isEmpty()) {
+                    return new SimpleStringProperty("No crops");
+                }
+                else {
+                    StringBuilder crops = new StringBuilder();
+                    for (Culture crop : activeCrops) {
+                        crops.append(crop.getNom()).append(", ");
+                    }
+                    return new SimpleStringProperty(crops.toString());
+                }
             } catch (SQLException e) {
                 e.printStackTrace();
                 return new SimpleStringProperty("Error loading crops");

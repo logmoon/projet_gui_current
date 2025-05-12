@@ -22,6 +22,7 @@ import javafx.util.Callback;
 
 import projet_gui.App;
 import projet_gui.Services.AuthService;
+import projet_gui.Services.CultureService;
 import projet_gui.Services.ParcelleService;
 import projet_gui.Utils.Alerts;
 import projet_gui.Utils.DataStore;
@@ -67,34 +68,34 @@ public class PageFieldDetailController extends ControllerBaseWithSidebar {
     private Label creationDateLabel;
     
     @FXML
-    private TableView<ParcelleCulture> cropsTable;
+    private TableView<Culture> cropsTable;
     
     @FXML
-    private TableColumn<ParcelleCulture, String> cropNameColumn;
+    private TableColumn<Culture, String> cropNameColumn;
     
     @FXML
-    private TableColumn<ParcelleCulture, String> cropStatusColumn;
+    private TableColumn<Culture, String> cropStatusColumn;
     
     @FXML
-    private TableColumn<ParcelleCulture, Double> cropWaterNeedsColumn;
+    private TableColumn<Culture, Double> cropWaterNeedsColumn;
     
     @FXML
-    private TableColumn<ParcelleCulture, Double> cropNutrientNeedsColumn;
+    private TableColumn<Culture, Double> cropNutrientNeedsColumn;
     
     @FXML
-    private TableColumn<ParcelleCulture, Void> cropActionsColumn;
+    private TableColumn<Culture, Void> cropActionsColumn;
     
     @FXML
     private HBox weatherContainer;
     
     private ParcelleService parcelleService;
-    private ParcelleCultureService parcelleCultureService;
+    private CultureService cultureService;
     private Parcelle currentParcelle;
 
     @Override
     public void initializePageContent() {
         parcelleService = ParcelleService.getInstance();
-        parcelleCultureService = ParcelleCultureService.getInstance();
+        cultureService = CultureService.getInstance();
         
         // Load the selected parcelle
         loadParcelle();
@@ -127,7 +128,7 @@ public class PageFieldDetailController extends ControllerBaseWithSidebar {
                 App.navigateTo("page_fields");
                 return;
             }
-            
+
             // Update the UI with the parcelle data
             updateUI();
             
@@ -186,25 +187,25 @@ public class PageFieldDetailController extends ControllerBaseWithSidebar {
     private void setupCropsTable() {
         // Setup cell value factories
         cropNameColumn.setCellValueFactory(cellData -> 
-            new SimpleStringProperty(cellData.getValue().getCulture().getNom()));
+            new SimpleStringProperty(cellData.getValue().getNom()));
         
         cropStatusColumn.setCellValueFactory(cellData -> 
-            new SimpleStringProperty(cellData.getValue().getStatut()));
+            new SimpleStringProperty(cellData.getValue().getNom()));
         
         cropWaterNeedsColumn.setCellValueFactory(cellData -> 
-            new SimpleDoubleProperty(cellData.getValue().getCulture().getBesoinEau()).asObject());
+            new SimpleDoubleProperty(cellData.getValue().getBesoinEau()).asObject());
         
         cropNutrientNeedsColumn.setCellValueFactory(cellData -> 
-            new SimpleDoubleProperty(cellData.getValue().getCulture().getBesoinNutriments()).asObject());
+            new SimpleDoubleProperty(cellData.getValue().getBesoinNutriments()).asObject());
         
         // Actions column with buttons
         cropActionsColumn.setCellFactory(createCropActionsColumnCellFactory());
     }
     
-    private Callback<TableColumn<ParcelleCulture, Void>, TableCell<ParcelleCulture, Void>> createCropActionsColumnCellFactory() {
+    private Callback<TableColumn<Culture, Void>, TableCell<Culture, Void>> createCropActionsColumnCellFactory() {
         return new Callback<>() {
             @Override
-            public TableCell<ParcelleCulture, Void> call(final TableColumn<ParcelleCulture, Void> param) {
+            public TableCell<Culture, Void> call(final TableColumn<Culture, Void> param) {
                 return new TableCell<>() {
                     private final Button removeBtn = new Button("Remove");
                     private final HBox pane = new HBox(5, removeBtn);
@@ -215,8 +216,8 @@ public class PageFieldDetailController extends ControllerBaseWithSidebar {
                         pane.setAlignment(Pos.CENTER);
                         
                         removeBtn.setOnAction(event -> {
-                            ParcelleCulture parcelleCulture = getTableView().getItems().get(getIndex());
-                            removeCrop(parcelleCulture);
+                            Culture culture = getTableView().getItems().get(getIndex());
+                            removeCrop(culture);
                         });
                     }
                     
@@ -233,8 +234,8 @@ public class PageFieldDetailController extends ControllerBaseWithSidebar {
     private void loadCropsData() {
         try {
             if (currentParcelle != null) {
-                List<ParcelleCulture> parcelleCultures = parcelleCultureService.getAllByParcelleId(currentParcelle.getId());
-                cropsTable.setItems(FXCollections.observableArrayList(parcelleCultures));
+                List<Culture> cultures = cultureService.getCulturesByParcelleId(currentParcelle.getId());
+                cropsTable.setItems(FXCollections.observableArrayList(cultures));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -323,9 +324,9 @@ public class PageFieldDetailController extends ControllerBaseWithSidebar {
         App.navigateTo("page_crops");
     }
     
-    private void removeCrop(ParcelleCulture parcelleCulture) {
+    private void removeCrop(Culture culture) {
         try {
-            boolean deleted = parcelleCultureService.delete(parcelleCulture.getId());
+            boolean deleted = cultureService.deleteCultureById(culture.getId());
             if (deleted) {
                 // Refresh the table
                 loadCropsData();
