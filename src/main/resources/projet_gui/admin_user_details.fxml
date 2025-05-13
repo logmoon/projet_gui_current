@@ -33,7 +33,7 @@
                <children>
                   <VBox styleClass="card">
                      <children>
-                        <Label styleClass="section-title" text="User Information" />
+                        <Label styleClass="dashboard-tile-title" text="User Information" />
                         <HBox spacing="10.0">
                            <children>
                               <Label text="Name:" />
@@ -61,38 +61,6 @@
                               <Insets top="5.0" />
                            </VBox.margin>
                         </HBox>
-                     </children>
-                     <padding>
-                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                     </padding>
-                  </VBox>
-                  <VBox styleClass="card" VBox.vgrow="ALWAYS">
-                     <children>
-                        <Label styleClass="section-title" text="Fields" />
-                        <TableView fx:id="fieldsTable" prefHeight="150.0">
-                          <columns>
-                            <TableColumn fx:id="fieldIdColumn" prefWidth="50.0" text="ID" />
-                            <TableColumn fx:id="fieldNameColumn" prefWidth="150.0" text="Name" />
-                            <TableColumn fx:id="fieldLocationColumn" prefWidth="150.0" text="Location" />
-                            <TableColumn fx:id="fieldSizeColumn" prefWidth="100.0" text="Size (ha)" />
-                          </columns>
-                        </TableView>
-                     </children>
-                     <padding>
-                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                     </padding>
-                  </VBox>
-                  <VBox styleClass="card" VBox.vgrow="ALWAYS">
-                     <children>
-                        <Label styleClass="section-title" text="Crops" />
-                        <TableView fx:id="cropsTable" prefHeight="150.0">
-                          <columns>
-                            <TableColumn fx:id="cropIdColumn" prefWidth="50.0" text="ID" />
-                            <TableColumn fx:id="cropNameColumn" prefWidth="150.0" text="Name" />
-                            <TableColumn fx:id="cropFieldColumn" prefWidth="150.0" text="Field" />
-                            <TableColumn fx:id="cropStatusColumn" prefWidth="100.0" text="Status" />
-                          </columns>
-                        </TableView>
                      </children>
                      <padding>
                         <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
