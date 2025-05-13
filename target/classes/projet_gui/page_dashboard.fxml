@@ -62,8 +62,8 @@
                                 <Label styleClass="dashboard-tile-title" text="Quick Actions" />
                                 <HBox spacing="10.0">
                                     <children>
-                                        <Button onAction="#addNewField" styleClass="button-primary" text="Add New Field" />
-                                        <Button onAction="#addNewTask" styleClass="button-primary" text="Create Task" />
+                                        <Button onAction="#addNewField" styleClass="button-primary" text="Manage Fields" />
+                                        <Button onAction="#addNewTask" styleClass="button-primary" text="Manage Tasks" />
                                         <Button onAction="#viewWeather" styleClass="button-primary" text="View Weather" />
                                     </children>
                                 </HBox>
@@ -73,12 +73,11 @@
                             </padding>
                         </VBox>
                         
-                        <!-- Field Status Overview -->
+                        <!-- Urgent Tasks -->
                         <VBox spacing="10.0" styleClass="card">
                             <children>
-                                <Label styleClass="dashboard-tile-title" text="Field Status Overview" />
-                                <VBox fx:id="fieldStatusContainer" spacing="10.0">
-                                    <!-- Field status items will be added here dynamically -->
+                                <Label styleClass="dashboard-tile-title" text="Urgent Tasks" />
+                                <VBox fx:id="urgentTasksContainer" spacing="10.0">
                                 </VBox>
                             </children>
                             <padding>

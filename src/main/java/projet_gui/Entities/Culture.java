@@ -7,6 +7,7 @@ public class Culture {
     private Double besoinNutriments;
     private Statut statut;
     private String imagePath;
+    private Utilisateur utilisateur;
     private Parcelle parcelle;
     private String description;
 
@@ -17,18 +18,19 @@ public class Culture {
     public Culture() {
     }
 
-    public Culture(String nom, Double besoinEau, Double besoinNutriments, Statut statut, String imagePath, Parcelle parcelle, String description) {
+    public Culture(String nom, Double besoinEau, Double besoinNutriments, Statut statut, String imagePath, Utilisateur user, Parcelle parcelle, String description) {
         this.nom = nom;
         this.besoinEau = besoinEau;
         this.besoinNutriments = besoinNutriments;
         this.statut = statut;
         this.imagePath = imagePath;
+        this.utilisateur = user;
         this.parcelle = parcelle;
         this.description = description;
     }
 
-    public Culture(int id, String nom, Double besoinEau, Double besoinNutriments, Statut statut, String imagePath, Parcelle parcelle, String description) {
-        this(nom, besoinEau, besoinNutriments, statut, imagePath, parcelle, description);
+    public Culture(int id, String nom, Double besoinEau, Double besoinNutriments, Statut statut, String imagePath, Utilisateur user, Parcelle parcelle, String description) {
+        this(nom, besoinEau, besoinNutriments, statut, imagePath, user ,parcelle, description);
         this.id = id;
     }
 
@@ -65,6 +67,9 @@ public class Culture {
 
     public Statut getStatut() { return statut; }
     public void setStatut(Statut statut) { this.statut = statut; }
+
+    public Utilisateur getUser() { return this.utilisateur; }
+    public void setUser(Utilisateur user) { this.utilisateur = user; }
 
     public Parcelle getParcelle() { return parcelle; }
     public void setParcelle(Parcelle parcelle) { this.parcelle = parcelle; }

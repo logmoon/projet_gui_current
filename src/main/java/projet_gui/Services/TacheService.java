@@ -30,6 +30,31 @@ public class TacheService {
         }
         return instance;
     }
+
+    // getNotCompletedAllByUserId
+    public List<Tache> getNotCompletedAllByUserId(int userId) throws SQLException {
+        String query = "SELECT t.*, p.id as parcelleId, p.nom as parcelleNom, "
+                + "c.id as cultureId, c.nom as cultureNom "
+                + "FROM Tache t "
+                + "JOIN Parcelle p ON t.parcelleId = p.id "
+                + "LEFT JOIN Culture c ON t.cultureId = c.id "
+                + "WHERE t.statut != ? AND p.userId = ?";
+        
+        List<Tache> taches = new ArrayList<>();
+        
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
+            ps.setString(1, Tache.STATUT_DONE);
+            ps.setInt(2, userId);
+            
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    taches.add(mapResultSetToTache(rs));
+                }
+            }
+        }
+        
+        return taches;
+    }
     
     /**
      * Create a new task in the database

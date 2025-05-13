@@ -26,6 +26,31 @@ public class CultureService {
         return instance;
     }
 
+    // getAllByUserId
+    public List<Culture> getAllByUserId(int userId) throws SQLException {
+        String query = "SELECT * FROM Culture WHERE userId = ?";
+        List<Culture> cultures = new ArrayList<>();
+
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
+            ps.setInt(1, userId);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Culture culture = new Culture();
+                culture.setId(rs.getInt("id"));
+                culture.setNom(rs.getString("nom"));
+                culture.setBesoinEau(rs.getDouble("besoinEau"));
+                culture.setBesoinNutriments(rs.getDouble("besoinNutriments"));
+                culture.setStatut(Culture.Statut.valueOf(rs.getString("statut")));
+                culture.setImagePath(rs.getString("imagePath"));
+                culture.setParcelle(null); // Parcelle object can be set later if needed
+                cultures.add(culture);
+            }
+        }
+
+        return cultures;
+    }
+
     // Get a culture by id
     public Culture getCultureById(int id) throws SQLException {
         String query = "SELECT * FROM Culture WHERE id = ?";

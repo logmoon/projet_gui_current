@@ -81,8 +81,10 @@ CREATE TABLE Culture (
     besoinNutriments DOUBLE NOT NULL,
     statut ENUM('HEALTHY', 'SICK', 'HARVESTED', 'FAILED') DEFAULT 'HEALTHY',
     imagePath VARCHAR(255),  -- Added field for storing image path
+    userId INT NOT NULL,
     parcelleId INT NOT NULL,
     description TEXT,
+    FOREIGN KEY (userId) REFERENCES Utilisateur(id) ON DELETE CASCADE,
     FOREIGN KEY (parcelleId) REFERENCES Parcelle(id) ON DELETE CASCADE
 );
 
@@ -162,6 +164,7 @@ CREATE INDEX idx_parcelle_localisation ON Parcelle(localisationCity);
 
 -- Culture (Crop) Indices
 CREATE INDEX idx_culture_parcelle ON Culture(parcelleId);
+CREATE INDEX idx_culture_user ON Culture(userId);
 CREATE INDEX idx_culture_statut ON Culture(statut);
 CREATE INDEX idx_culture_nom ON Culture(nom);
 
