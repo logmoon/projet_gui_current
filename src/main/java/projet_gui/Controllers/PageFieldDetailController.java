@@ -70,24 +70,9 @@ public class PageFieldDetailController extends ControllerBaseWithSidebar {
     
     @FXML
     private Label creationDateLabel;
-    
+
     @FXML
-    private TableView<Culture> cropsTable;
-    
-    @FXML
-    private TableColumn<Culture, String> cropNameColumn;
-    
-    @FXML
-    private TableColumn<Culture, String> cropStatusColumn;
-    
-    @FXML
-    private TableColumn<Culture, Double> cropWaterNeedsColumn;
-    
-    @FXML
-    private TableColumn<Culture, Double> cropNutrientNeedsColumn;
-    
-    @FXML
-    private TableColumn<Culture, Void> cropActionsColumn;
+    private Label cropsLabel;
     
     @FXML
     private HBox weatherContainer;
@@ -103,9 +88,6 @@ public class PageFieldDetailController extends ControllerBaseWithSidebar {
         
         // Load the selected parcelle
         loadParcelle();
-        
-        // Setup crops table
-        setupCropsTable();
         
         // Load crops data
         loadCropsData();
@@ -231,58 +213,19 @@ public class PageFieldDetailController extends ControllerBaseWithSidebar {
         noImageLabel.setVisible(true);
     }
     
-    private void setupCropsTable() {
-        // Setup cell value factories
-        cropNameColumn.setCellValueFactory(cellData -> 
-            new SimpleStringProperty(cellData.getValue().getNom()));
-        
-        cropStatusColumn.setCellValueFactory(cellData -> 
-            new SimpleStringProperty(cellData.getValue().getNom()));
-        
-        cropWaterNeedsColumn.setCellValueFactory(cellData -> 
-            new SimpleDoubleProperty(cellData.getValue().getBesoinEau()).asObject());
-        
-        cropNutrientNeedsColumn.setCellValueFactory(cellData -> 
-            new SimpleDoubleProperty(cellData.getValue().getBesoinNutriments()).asObject());
-        
-        // Actions column with buttons
-        cropActionsColumn.setCellFactory(createCropActionsColumnCellFactory());
-    }
-    
-    private Callback<TableColumn<Culture, Void>, TableCell<Culture, Void>> createCropActionsColumnCellFactory() {
-        return new Callback<>() {
-            @Override
-            public TableCell<Culture, Void> call(final TableColumn<Culture, Void> param) {
-                return new TableCell<>() {
-                    private final Button removeBtn = new Button("Remove");
-                    private final HBox pane = new HBox(5, removeBtn);
-                    
-                    {
-                        removeBtn.getStyleClass().add("button-small");
-                        removeBtn.getStyleClass().add("button-danger");
-                        pane.setAlignment(Pos.CENTER);
-                        
-                        removeBtn.setOnAction(event -> {
-                            Culture culture = getTableView().getItems().get(getIndex());
-                            removeCrop(culture);
-                        });
-                    }
-                    
-                    @Override
-                    protected void updateItem(Void item, boolean empty) {
-                        super.updateItem(item, empty);
-                        setGraphic(empty ? null : pane);
-                    }
-                };
-            }
-        };
-    }
-    
     private void loadCropsData() {
         try {
             if (currentParcelle != null) {
                 List<Culture> cultures = cultureService.getCulturesByParcelleId(currentParcelle.getId());
-                cropsTable.setItems(FXCollections.observableArrayList(cultures));
+                if (cultures != null && !cultures.isEmpty()) {
+                    cropsLabel.setText("Crops (" + cultures.size() + ")\n\n" +
+                            cultures.stream()
+                                    .map(culture -> culture.getNom() + " (" + culture.getStatut() + ")")
+                                    .reduce((a, b) -> a + "\n" + b)
+                                    .orElse(""));
+                } else {
+                    cropsLabel.setText("No crops found");
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();

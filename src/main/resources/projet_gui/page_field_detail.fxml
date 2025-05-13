@@ -128,15 +128,7 @@
                                                 <Button mnemonicParsing="false" onAction="#manageCrops" styleClass="button" text="Manage Crops" />
                                             </children>
                                         </HBox>
-                                        <TableView fx:id="cropsTable" prefHeight="200.0">
-                                            <columns>
-                                                <TableColumn fx:id="cropNameColumn" prefWidth="150.0" text="Name" />
-                                                <TableColumn fx:id="cropStatusColumn" prefWidth="100.0" text="Status" />
-                                                <TableColumn fx:id="cropWaterNeedsColumn" prefWidth="120.0" text="Water Needs" />
-                                                <TableColumn fx:id="cropNutrientNeedsColumn" prefWidth="120.0" text="Nutrient Needs" />
-                                                <TableColumn fx:id="cropActionsColumn" prefWidth="100.0" text="Actions" />
-                                            </columns>
-                                        </TableView>
+                                        <Label fx:id="cropsLabel" text="Crops planted in this field: " />
                                     </children>
                                 </VBox>
                                 
