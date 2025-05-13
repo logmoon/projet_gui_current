@@ -64,6 +64,21 @@
                                         </HBox>
                                     </children>
                                 </VBox>
+
+                                <!-- Weather Section -->
+                                <VBox spacing="15.0" styleClass="card">
+                                    <padding>
+                                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                    </padding>
+                                    <children>
+                                        <Label styleClass="dashboard-tile-title" text="Weather Information" />
+                                        <HBox fx:id="weatherContainer" alignment="CENTER" spacing="20.0" styleClass="weather-container">
+                                            <children>
+                                                <Label text="Weather information will be displayed here" />
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </VBox>
                                 
                                 <!-- Field Information Section -->
                                 <VBox spacing="15.0" styleClass="card">
@@ -125,20 +140,6 @@
                                     </children>
                                 </VBox>
                                 
-                                <!-- Weather Section -->
-                                <VBox spacing="15.0" styleClass="card">
-                                    <padding>
-                                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                                    </padding>
-                                    <children>
-                                        <Label styleClass="dashboard-tile-title" text="Weather Information" />
-                                        <HBox fx:id="weatherContainer" alignment="CENTER" spacing="20.0" styleClass="weather-container">
-                                            <children>
-                                                <Label text="Weather information will be displayed here" />
-                                            </children>
-                                        </HBox>
-                                    </children>
-                                </VBox>
                             </children>
                         </VBox>
                     </content>

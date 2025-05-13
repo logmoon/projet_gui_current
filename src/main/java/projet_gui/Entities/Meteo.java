@@ -1,10 +1,10 @@
 package projet_gui.Entities;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 public class Meteo {
     private int id;
-    private Timestamp date;
+    private LocalDateTime date;
     private Double temperature;
     private Double humidite;
     private String conditions;
@@ -15,7 +15,7 @@ public class Meteo {
     public Meteo() {
     }
 
-    public Meteo(Timestamp date, Double temperature, Double humidite, String conditions,
+    public Meteo(LocalDateTime date, Double temperature, Double humidite, String conditions,
                 Parcelle parcelle, Boolean alerteMeteo, String messageAlerte) {
         this.date = date;
         this.temperature = temperature;
@@ -26,7 +26,7 @@ public class Meteo {
         this.messageAlerte = messageAlerte;
     }
 
-    public Meteo(int id, Timestamp date, Double temperature, Double humidite, String conditions,
+    public Meteo(int id, LocalDateTime date, Double temperature, Double humidite, String conditions,
                 Parcelle parcelle, Boolean alerteMeteo, String messageAlerte) {
         this(date, temperature, humidite, conditions, parcelle, alerteMeteo, messageAlerte);
         this.id = id;
@@ -36,8 +36,8 @@ public class Meteo {
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
-    public Timestamp getDate() { return date; }
-    public void setDate(Timestamp date) {
+    public LocalDateTime getDate() { return date; }
+    public void setDate(LocalDateTime date) {
         if (date == null) {
             throw new IllegalArgumentException("Date cannot be null");
         }
@@ -76,7 +76,7 @@ public class Meteo {
         this.parcelle = parcelle;
     }
 
-    public Boolean getAlerteMeteo() { return alerteMeteo; }
+    public Boolean isAlerteMeteo() { return alerteMeteo == null ? false : alerteMeteo; }
     public void setAlerteMeteo(Boolean alerteMeteo) {
         this.alerteMeteo = alerteMeteo != null ? alerteMeteo : false;
     }

@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.control.TextField?>
 <BorderPane fx:id="mainLayout" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" stylesheets="@styles/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projet_gui.Controllers.PageWeatherController">
     <center>
         <BorderPane styleClass="main-container" BorderPane.alignment="CENTER">
@@ -30,10 +31,12 @@
                                 <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                             </padding>
                             <children>
-                                <ComboBox fx:id="fieldSelector" promptText="Select Field" HBox.hgrow="ALWAYS" />
+                                <Label text="City:" />
+                                <TextField fx:id="citySearchField" promptText="Enter city name" HBox.hgrow="ALWAYS" />
                                 <Button mnemonicParsing="false" onAction="#refreshWeather" styleClass="button-primary" text="Refresh Weather" />
                             </children>
                         </HBox>
+
                     </children>
                 </VBox>
             </top>
@@ -62,6 +65,9 @@
                                                 
                                                 <Label text="Conditions:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
                                                 <Label fx:id="conditionsLabel" text="--" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                                                <Label text="Date:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                                                <Label fx:id="dateLabel" text="--" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                             </children>
                                         </GridPane>
                                     </children>

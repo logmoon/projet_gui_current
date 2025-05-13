@@ -23,16 +23,20 @@ import javafx.util.Callback;
 import projet_gui.App;
 import projet_gui.Services.AuthService;
 import projet_gui.Services.CultureService;
+import projet_gui.Services.MeteoService;
 import projet_gui.Services.ParcelleService;
 import projet_gui.Utils.Alerts;
 import projet_gui.Utils.DataStore;
 import projet_gui.Utils.FileDialogUtils;
 import projet_gui.Entities.Parcelle;
 import projet_gui.Entities.Culture;
+import projet_gui.Entities.Meteo;
 
 import java.io.File;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class PageFieldDetailController extends ControllerBaseWithSidebar {
@@ -129,6 +133,7 @@ public class PageFieldDetailController extends ControllerBaseWithSidebar {
                 return;
             }
 
+            updateWeather();
             // Update the UI with the parcelle data
             updateUI();
             
@@ -136,6 +141,48 @@ public class PageFieldDetailController extends ControllerBaseWithSidebar {
             e.printStackTrace();
             Alerts.showAlert(AlertType.ERROR, "Error", e.getMessage());
             App.navigateTo("page_fields");
+        }
+    }
+
+    private void updateWeather() {
+        if (currentParcelle == null) {
+            return;
+        }
+
+        MeteoService updateService = new MeteoService();
+
+        // Récupération du nom de la ville à partir de la parcelle
+        String ville = currentParcelle.getLocalisationCity(); // Assure-toi que cette méthode existe
+
+        // Appel à l'API météo
+        String cleApi = "c6977be568c002c754a19f650e13c65c";
+        Meteo m = updateService.recupererMeteo(ville, cleApi);
+
+        if (m != null) {
+            // Affichage dans l'interface
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+            Label label = new Label(
+                    formatter.format(LocalDateTime.now()) + " | " +
+                            "Température: " + m.getTemperature() + "°C, " +
+                            "Humidité: " + m.getHumidite() + "%, " +
+                            "Conditions: " + m.getConditions()
+            );
+            weatherContainer.getChildren().clear();
+            weatherContainer.getChildren().add(label);
+
+            // Enregistrement en base avec l’ID de la parcelle
+            try {
+                boolean saved = updateService.addservice(m, currentParcelle.getId());
+                if (saved) {
+                    System.out.println("Météo mise à jour et enregistrée.");
+                } else {
+                    System.out.println("Erreur lors de l'enregistrement.");
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("Échec de récupération de la météo pour : " + ville);
         }
     }
     
