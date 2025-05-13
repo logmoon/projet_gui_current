@@ -52,13 +52,12 @@
                         <!-- Tasks Table -->
                         <TableView fx:id="tasksTable" VBox.vgrow="ALWAYS">
                             <columns>
-                                <TableColumn fx:id="descriptionColumn" prefWidth="200.0" text="Description" />
+                                <TableColumn fx:id="descriptionColumn" prefWidth="100.0" text="Description" />
                                 <TableColumn fx:id="statusColumn" prefWidth="100.0" text="Status" />
                                 <TableColumn fx:id="priorityColumn" prefWidth="100.0" text="Priority" />
-                                <TableColumn fx:id="fieldColumn" prefWidth="150.0" text="Field" />
-                                <TableColumn fx:id="dueDateColumn" prefWidth="120.0" text="Due Date" />
-                                <TableColumn fx:id="assigneeColumn" prefWidth="120.0" text="Assignee" />
-                                <TableColumn fx:id="actionsColumn" prefWidth="100.0" text="Actions" />
+                                <TableColumn fx:id="fieldColumn" prefWidth="100.0" text="Field" />
+                                <TableColumn fx:id="dueDateColumn" prefWidth="100.0" text="Due Date" />
+                                <TableColumn fx:id="actionsColumn" prefWidth="200.0" text="Actions" />
                             </columns>
                             <columnResizePolicy>
                                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

@@ -15,6 +15,7 @@ import projet_gui.Services.CultureService;
 import projet_gui.Services.ParcelleService;
 import projet_gui.Services.TacheService;
 import projet_gui.Utils.Alerts;
+import projet_gui.Utils.DataStore;
 
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -23,11 +24,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-public class PageTaskAddController extends ControllerBaseWithSidebar {
+public class PageTaskEditController extends ControllerBaseWithSidebar {
 
     @FXML
     private TextField descriptionField;
 
+    @FXML
+    private ComboBox<String> statusComboBox;
+    
     @FXML
     private ComboBox<String> priorityComboBox;
 
@@ -45,6 +49,8 @@ public class PageTaskAddController extends ControllerBaseWithSidebar {
     private CultureService cultureService;
     private List<Parcelle> parcelles;
     private SimpleDateFormat dateFormat;
+    private Tache currentTask;
+    private Integer currentTaskId;
 
     @Override
     public void initializePageContent() {
@@ -53,8 +59,19 @@ public class PageTaskAddController extends ControllerBaseWithSidebar {
         cultureService = CultureService.getInstance();
         dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         
+        // Get task ID from parameters
+        currentTaskId = DataStore.get("currentTaskId", Integer.class);
+        if (currentTaskId == null) {
+            Alerts.showAlert(AlertType.ERROR, "Error", "No task ID provided");
+            App.navigateTo("page_tasks");
+            return;
+        }
+        
         // Initialize form fields
         setupFormFields();
+        
+        // Load task data
+        loadTaskData();
     }
 
     @Override
@@ -63,6 +80,14 @@ public class PageTaskAddController extends ControllerBaseWithSidebar {
     }
 
     private void setupFormFields() {
+        // Setup status combo box
+        statusComboBox.getItems().addAll(
+            Tache.STATUT_PENDING,
+            Tache.STATUT_IN_PROGRESS,
+            Tache.STATUT_DONE,
+            Tache.STATUT_CANCELLED
+        );
+        
         // Setup priority combo box
         priorityComboBox.getItems().addAll(
             Tache.PRIORITE_LOW,
@@ -70,31 +95,81 @@ public class PageTaskAddController extends ControllerBaseWithSidebar {
             Tache.PRIORITE_HIGH,
             Tache.PRIORITE_URGENT
         );
-        priorityComboBox.setValue(Tache.PRIORITE_MEDIUM);
         
         // Setup field combo box
         try {
             parcelles = parcelleService.getAll();
             if (parcelles.isEmpty()) {
-                Alerts.showAlert(AlertType.WARNING, "No Fields Available", "You need to create at least one field before creating tasks.");
                 fieldComboBox.setDisable(true);
                 cultureComboBox.setDisable(true);
             } else {
                 for (Parcelle parcelle : parcelles) {
                     fieldComboBox.getItems().add(parcelle.getId() + ": " + parcelle.getNom());
                 }
-                fieldComboBox.setValue(fieldComboBox.getItems().get(0));
-                
-                // Load cultures for the selected field
-                loadCulturesForSelectedField();
             }
         } catch (SQLException e) {
             Alerts.showAlert(AlertType.ERROR, "Error loading fields", e.getMessage());
         }
-        
-        // Set default due date (tomorrow)
-        Date tomorrow = new Date(System.currentTimeMillis() + 86400000); // 24 hours in milliseconds
-        dueDateField.setText(dateFormat.format(tomorrow));
+    }
+    
+    private void loadTaskData() {
+        try {
+            currentTask = tacheService.getById(currentTaskId);
+            if (currentTask == null) {
+                Alerts.showAlert(AlertType.ERROR, "Error", "Task not found");
+                App.navigateTo("page_tasks");
+                return;
+            }
+            
+            // Set description
+            descriptionField.setText(currentTask.getDescription());
+            
+            // Set status
+            statusComboBox.setValue(currentTask.getStatut());
+            
+            // Set priority
+            priorityComboBox.setValue(currentTask.getPriorite());
+            
+            // Set field
+            Parcelle parcelle = currentTask.getParcelle();
+            if (parcelle != null) {
+                String fieldValue = parcelle.getId() + ": " + parcelle.getNom();
+                fieldComboBox.setValue(fieldValue);
+                
+                // Load cultures for this field
+                loadCulturesForSelectedField();
+                
+                // Set culture if exists
+                if (currentTask.getCulture() != null) {
+                    Culture culture = currentTask.getCulture();
+                    String cultureValue = culture.getId() + ": " + culture.getNom();
+                    
+                    // Check if the culture exists in the combo box
+                    boolean cultureFound = false;
+                    for (String item : cultureComboBox.getItems()) {
+                        if (item.startsWith(culture.getId() + ":")) {
+                            cultureComboBox.setValue(item);
+                            cultureFound = true;
+                            break;
+                        }
+                    }
+                    
+                    if (!cultureFound) {
+                        cultureComboBox.setValue("None");
+                    }
+                } else {
+                    cultureComboBox.setValue("None");
+                }
+            }
+            
+            // Set due date
+            if (currentTask.getDateEcheance() != null) {
+                dueDateField.setText(dateFormat.format(currentTask.getDateEcheance()));
+            }
+            
+        } catch (SQLException e) {
+            Alerts.showAlert(AlertType.ERROR, "Error loading task", e.getMessage());
+        }
     }
 
     @FXML
@@ -132,7 +207,11 @@ public class PageTaskAddController extends ControllerBaseWithSidebar {
                 for (Culture culture : cultures) {
                     cultureComboBox.getItems().add(culture.getId() + ": " + culture.getNom());
                 }
-                cultureComboBox.setValue(cultureComboBox.getItems().get(0));
+                
+                // If we're loading a task with a culture, we'll set it later
+                if (cultureComboBox.getValue() == null) {
+                    cultureComboBox.setValue("None");
+                }
             }
         } catch (SQLException e) {
             Alerts.showAlert(AlertType.ERROR, "Error loading cultures", e.getMessage());
@@ -143,17 +222,17 @@ public class PageTaskAddController extends ControllerBaseWithSidebar {
     private void saveTaskChanges(ActionEvent event) {
         if (validateForm()) {
             try {
-                Tache newTask = createTaskFromForm();
-                Tache savedTask = tacheService.create(newTask);
+                Tache updatedTask = createTaskFromForm();
+                Tache savedTask = tacheService.update(updatedTask);
                 
                 if (savedTask != null) {
-                    Alerts.showAlert(AlertType.INFORMATION, "Success", "Task created successfully");
+                    Alerts.showAlert(AlertType.INFORMATION, "Success", "Task updated successfully");
                     App.navigateTo("page_tasks");
                 } else {
-                    Alerts.showAlert(AlertType.ERROR, "Error", "Failed to create task");
+                    Alerts.showAlert(AlertType.ERROR, "Error", "Failed to update task");
                 }
             } catch (SQLException | ParseException e) {
-                Alerts.showAlert(AlertType.ERROR, "Error creating task", e.getMessage());
+                Alerts.showAlert(AlertType.ERROR, "Error updating task", e.getMessage());
             }
         }
     }
@@ -183,16 +262,17 @@ public class PageTaskAddController extends ControllerBaseWithSidebar {
     }
     
     private Tache createTaskFromForm() throws ParseException {
-        Tache task = new Tache();
+        // We're updating the existing task
+        Tache task = currentTask;
         
         // Set description
         task.setDescription(descriptionField.getText().trim());
         
+        // Set status
+        task.setStatut(statusComboBox.getValue());
+        
         // Set priority
         task.setPriorite(priorityComboBox.getValue());
-        
-        // Set status (default to PENDING)
-        task.setStatut(Tache.STATUT_PENDING);
         
         // Set due date
         Date dueDate = dateFormat.parse(dueDateField.getText());
@@ -222,6 +302,9 @@ public class PageTaskAddController extends ControllerBaseWithSidebar {
                 // If there's an error, we'll just not set the culture
                 System.out.println("Error setting culture: " + e.getMessage());
             }
+        } else {
+            // If "None" is selected, set culture to null
+            task.setCulture(null);
         }
         
         return task;

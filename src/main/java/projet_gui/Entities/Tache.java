@@ -11,7 +11,6 @@ public class Tache {
     private Timestamp dateCreation;
     private Timestamp dateEcheance;
     private Culture culture;
-    private Utilisateur assignee;
 
     public static final String STATUT_PENDING = "PENDING";
     public static final String STATUT_IN_PROGRESS = "IN_PROGRESS";
@@ -27,19 +26,18 @@ public class Tache {
     }
 
     public Tache(Parcelle parcelle, String description, String statut, String priorite,
-                Timestamp dateEcheance, Culture culture, Utilisateur assignee) {
+                Timestamp dateEcheance, Culture culture) {
         this.parcelle = parcelle;
         this.description = description;
         this.statut = statut;
         this.priorite = priorite;
         this.dateEcheance = dateEcheance;
         this.culture = culture;
-        this.assignee = assignee;
     }
 
     public Tache(int id, Parcelle parcelle, String description, String statut, String priorite,
-                Timestamp dateCreation, Timestamp dateEcheance, Culture culture, Utilisateur assignee) {
-        this(parcelle, description, statut, priorite, dateEcheance, culture, assignee);
+                Timestamp dateCreation, Timestamp dateEcheance, Culture culture) {
+        this(parcelle, description, statut, priorite, dateEcheance, culture);
         this.id = id;
         this.dateCreation = dateCreation;
     }
@@ -91,9 +89,6 @@ public class Tache {
     public Culture getCulture() { return culture; }
     public void setCulture(Culture culture) { this.culture = culture; }
 
-    public Utilisateur getAssignee() { return assignee; }
-    public void setAssignee(Utilisateur assignee) { this.assignee = assignee; }
-
     @Override
     public String toString() {
         return "Tache{" +
@@ -105,7 +100,6 @@ public class Tache {
                 ", dateCreation=" + dateCreation +
                 ", dateEcheance=" + dateEcheance +
                 ", culture=" + culture +
-                ", assignee=" + assignee +
                 '}';
     }
 }

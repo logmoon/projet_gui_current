@@ -5,7 +5,6 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.GridPane?>
@@ -13,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="mainLayout" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" stylesheets="@styles/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projet_gui.Controllers.PageTaskAddController">
+<BorderPane fx:id="mainLayout" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" stylesheets="@styles/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projet_gui.Controllers.PageTaskEditController">
     <center>
         <BorderPane styleClass="main-container" BorderPane.alignment="CENTER">
             <top>
@@ -24,7 +23,7 @@
                                 <Label text="← Back to Tasks" />
                             </graphic>
                         </Button>
-                        <Label styleClass="header-title" text="Add A New Task" HBox.hgrow="ALWAYS">
+                        <Label styleClass="header-title" text="Edit Task" HBox.hgrow="ALWAYS">
                             <HBox.margin>
                                 <Insets left="20.0" />
                             </HBox.margin>
@@ -54,6 +53,9 @@
                                             <children>
                                                 <Label text="Description:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                                                 <TextField fx:id="descriptionField" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                                
+                                                <Label text="Status:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                                <ComboBox fx:id="statusComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                                 
                                                 <Label text="Priority:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
                                                 <ComboBox fx:id="priorityComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />

@@ -26,6 +26,30 @@ public class CultureService {
         return instance;
     }
 
+    // Get a culture by id
+    public Culture getCultureById(int id) throws SQLException {
+        String query = "SELECT * FROM Culture WHERE id = ?";
+        Culture culture = null;
+
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                culture = new Culture();
+                culture.setId(rs.getInt("id"));
+                culture.setNom(rs.getString("nom"));
+                culture.setBesoinEau(rs.getDouble("besoinEau"));
+                culture.setBesoinNutriments(rs.getDouble("besoinNutriments"));
+                culture.setStatut(Culture.Statut.valueOf(rs.getString("statut")));
+                culture.setImagePath(rs.getString("imagePath"));
+                culture.setParcelle(null); // Parcelle object can be set later if needed
+            }
+        }
+
+        return culture;
+    }
+
     // Gets all cultures by parcelle id
     public List<Culture> getCulturesByParcelleId(int parcelleId) throws SQLException {
         String query = "SELECT * FROM Culture WHERE parcelleId = ?";

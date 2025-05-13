@@ -107,10 +107,8 @@ CREATE TABLE Tache (
     dateCreation TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     dateEcheance TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     cultureId INT,
-    assigneeId INT,
     FOREIGN KEY (parcelleId) REFERENCES Parcelle(id),
     FOREIGN KEY (cultureId) REFERENCES Culture(id),
-    FOREIGN KEY (assigneeId) REFERENCES Utilisateur(id) ON DELETE SET NULL
 );
 
 -- Weather data table with field-specific tracking
