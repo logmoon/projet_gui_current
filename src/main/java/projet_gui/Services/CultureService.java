@@ -28,9 +28,11 @@ public class CultureService {
 
     // getAllByUserId
     public List<Culture> getAllByUserId(int userId) throws SQLException {
-        String query = "SELECT * FROM Culture WHERE userId = ?";
+        // use a JOIN to get cultures associated with the user's parcelles
+        String query = "SELECT c.* FROM Culture c " +
+                       "JOIN Parcelle p ON c.parcelleId = p.id " +
+                       "WHERE p.proprietaireId = ?";
         List<Culture> cultures = new ArrayList<>();
-
         try (PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setInt(1, userId);
             ResultSet rs = ps.executeQuery();
@@ -47,7 +49,6 @@ public class CultureService {
                 cultures.add(culture);
             }
         }
-
         return cultures;
     }
 

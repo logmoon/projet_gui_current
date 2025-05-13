@@ -64,6 +64,19 @@ public class PageDashboardController extends ControllerBaseWithSidebar {
             // Taches
             List<Tache> taches = tacheService.getNotCompletedAllByUserId(AuthService.getInstance().getCurrentToken().getUser().getId());
             pendingTasksLabel.setText(String.valueOf(taches.size()));
+
+            // Display urgent tasks
+            for (Tache tache : taches) {
+                if (tache.getPriorite().equals(Tache.PRIORITE_URGENT)) {
+                    String taskText = String.format("%s - Field: [ %s ] - Status: [ %s ]",
+                            tache.getDescription(),
+                            tache.getParcelle().getNom(),
+                            tache.getStatut());
+                    Label taskLabel = new Label(taskText);
+                    taskLabel.setStyle("fx-font-weight: bold;");
+                    urgentTasksContainer.getChildren().add(taskLabel);
+                }
+            }
         }
         catch (Exception e) {
             Alerts.showAlert(AlertType.ERROR, "Error", e.getMessage());

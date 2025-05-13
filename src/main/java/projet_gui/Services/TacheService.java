@@ -38,7 +38,7 @@ public class TacheService {
                 + "FROM Tache t "
                 + "JOIN Parcelle p ON t.parcelleId = p.id "
                 + "LEFT JOIN Culture c ON t.cultureId = c.id "
-                + "WHERE t.statut != ? AND p.userId = ?";
+                + "WHERE t.statut != ? AND p.proprietaireId = ?";
         
         List<Tache> taches = new ArrayList<>();
         
