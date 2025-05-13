@@ -25,7 +25,7 @@ CREATE TABLE Utilisateur (
 
 -- Create a normal user (123456 is the password)
 INSERT INTO Utilisateur (nom, prenom, email, motDePasse, role) VALUES 
-('Admin', 'User', 'tw@tw.tw', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', 'AGRICULTEUR');
+('Amen', 'BA', 'tw@tw.tw', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', 'AGRICULTEUR');
 
 -- Create an admin user (admin1 is the password)
 INSERT INTO Utilisateur (nom, prenom, email, motDePasse, role) VALUES 

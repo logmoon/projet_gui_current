@@ -49,6 +49,19 @@ public class UtilisateurService {
         }
     }
     
+    // method that makes the user an admin
+    public boolean makeAdmin(int userId) throws SQLException {
+        String query = "UPDATE utilisateur SET role = ? WHERE id = ?";
+        
+        try (PreparedStatement pst = connection.prepareStatement(query)) {
+            pst.setString(1, Role.ADMIN.name());
+            pst.setInt(2, userId);
+            
+            int affectedRows = pst.executeUpdate();
+            return affectedRows > 0;
+        }
+    }
+    
     /**
      * Register a new user
      * @return true if registration successful, false otherwise

@@ -85,14 +85,21 @@ public class AdminDashboardController extends ControllerBaseWithSidebar {
     private void setupActionsColumn() {
         actionsColumn.setCellFactory(column -> new TableCell<Utilisateur, Void>() {
             private final Button viewButton = new Button("View");
+            private final Button makeAdminButton = new Button("Make Admin");
             private final Button deleteButton = new Button("Delete");
-            private final HBox pane = new HBox(5, viewButton, deleteButton);
+            private final HBox pane = new HBox(6, viewButton, makeAdminButton, deleteButton);
 
             {
                 viewButton.getStyleClass().add("button-primary");
                 viewButton.setOnAction(event -> {
                     Utilisateur user = getTableView().getItems().get(getIndex());
                     viewUser(user);
+                });
+
+                makeAdminButton.getStyleClass().add("button-primary");
+                makeAdminButton.setOnAction(event -> {
+                    Utilisateur user = getTableView().getItems().get(getIndex());
+                    makeUserAdmin(user);
                 });
 
                 deleteButton.getStyleClass().add("button-accent");
@@ -142,11 +149,32 @@ public class AdminDashboardController extends ControllerBaseWithSidebar {
         Optional<ButtonType> result = Alerts.showAlert(
             AlertType.CONFIRMATION, 
             "Delete User", 
-            "Are you sure you want to delete user " + user.getPrenom() + " " + user.getNom() + "?");
+            "Are you sure you want to delete user: " + user.getPrenom() + " " + user.getNom() + "?");
         
         if (result.isPresent() && result.get() == ButtonType.OK) {
             try {
                 utilisateurService.deleteUser(user.getId());
+                loadUsers(); // Refresh the table
+            } catch (SQLException e) {
+                Alerts.showAlert(AlertType.ERROR, "Error", "Failed to delete user: " + e.getMessage());
+            }
+        }
+    }
+
+    private void makeUserAdmin(Utilisateur user) {
+        if (user.getRole() == Role.ADMIN) {
+            Alerts.showAlert(AlertType.INFORMATION, "Info", "User is already an admin.");
+            return;
+        }
+
+        Optional<ButtonType> result = Alerts.showAlert(
+            AlertType.CONFIRMATION, 
+            "Make User Admin", 
+            "Are you sure you want to turn user: " + user.getPrenom() + " " + user.getNom() + " into an admin?");
+        
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            try {
+                utilisateurService.makeAdmin(user.getId());
                 loadUsers(); // Refresh the table
             } catch (SQLException e) {
                 Alerts.showAlert(AlertType.ERROR, "Error", "Failed to delete user: " + e.getMessage());

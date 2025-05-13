@@ -35,7 +35,7 @@
                       <TableColumn fx:id="nameColumn" prefWidth="150.0" text="Name" />
                       <TableColumn fx:id="emailColumn" prefWidth="200.0" text="Email" />
                       <TableColumn fx:id="statusColumn" prefWidth="100.0" text="Status" />
-                      <TableColumn fx:id="actionsColumn" prefWidth="200.0" text="Actions" />
+                      <TableColumn fx:id="actionsColumn" prefWidth="350.0" text="Actions" />
                     </columns>
                   </TableView>
                </children>
